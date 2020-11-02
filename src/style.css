@@ -1,0 +1,11 @@
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin-top: 5rem;
+}
+.text-lg { font-size: 1.5rem; }
+input, textarea {
+  background-color: darkgray !important;
+  color: black !important;
+}

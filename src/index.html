@@ -1,0 +1,182 @@
+<!DOCTYPE html><html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+  <title>Meta Tag Generator</title>
+  <link rel="stylesheet" href="assets/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css-modal.css">
+  <link rel="stylesheet" href="style.css">
+
+  <meta name="author" content="Lewis Nakao">
+  <meta name="description" content="Generates meta tags based on multiple standards.">
+
+  <!-- Schema.org for Google -->
+  <meta itemprop="name" content="🤖 Meta Tag Generator">
+  <meta itemprop="description" content="Generates meta tags based on multiple standards.">
+  <meta itemprop="image" content="https://lewdev.github.io/apps/meta-tag-gen/img/banner-1200x630.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="🤖 Meta Tag Generator">
+  <meta name="twitter:description" content="Generates meta tags based on multiple standards.">
+  <meta name="twitter:site" content="@lewdev">
+  <meta name="twitter:creator" content="@lewdev">
+  <meta name="twitter:image" content="https://lewdev.github.io/apps/meta-tag-gen/img/banner-1200x630.png">
+
+  <!-- Open Graph general (Facebook, Pinterest)-->
+  <meta property="og:title" content="🤖 Meta Tag Generator">
+  <meta property="og:description" content="Generates meta tags based on multiple standards.">
+  <meta property="og:url" content="https://lewdev.github.io/apps/meta-tag-gen/">
+  <meta property="og:site_name" content="🤖 Meta Tag Generator">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://lewdev.github.io/apps/meta-tag-gen/img/banner-1200x630.png">
+
+  <!-- favicon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+  <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+    <div class="container">
+      <span class="navbar-brand"><img src="favicon/android-icon-36x36.png" /> Meta Tag Generator</span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span id="navbarToggleBtn" class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#about">❓ About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/sponsors/lewdev">❤️ Sponsor Me</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-header" id="banner">
+      <h1>⌨️ Inputs</h1>
+    </div>
+    <div id="metaInputs" class="row">
+      <div class="col-md-4 mt-3">
+        <label>⌨️ Title</label>
+        <input type="text" class="form-control title" placeholder="e.g. My App Name" />
+      </div>
+      <div class="col-md-4 mt-3">
+        <label>⌨️ Description</label>
+        <input type="text" class="form-control description" placeholder="e.g. What my app does..." />
+      </div>
+      <div class="col-md-4 mt-3">
+        <label>👤 Author</label>
+        <input type="text" class="form-control author" placeholder="e.g. John Smith..." />
+      </div>
+      <div class="col-md-4 mt-3">
+        <label>ℹ️ URL</label>
+        <input type="text" class="form-control url" placeholder="e.g. https://github.com ..." />
+      </div>
+      <div class="col-md-4 mt-3">
+        <label>🖼️ Image URL</label>
+        <input type="text" class="form-control imageUrl" placeholder="e.g. https://github.com ..." />
+      </div>
+      <div class="col-md-4 mt-3">
+        <label>🐦 Twitter Username</label>
+        <input type="text" class="form-control twitter" placeholder="e.g. twitterHandle" />
+      </div>
+      <div class="col-md-4 mt-3">
+        <label>📘 fb:app_id</label>
+        <input type="text" class="form-control fbAppId" placeholder="e.g. 99999999"/>
+      </div>
+      <div class="col-12 mt-3 text-center">
+        <button id="generateBtn" class="btn btn-primary">🤖 Generate</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="outputSection" class="mb-5"><!-- scroll point --></div>
+
+  <div class="container mt-3">
+    <div class="page-header row">
+      <div class="col-9">
+        <h1>📦 Output</h1>
+      </div>
+      <div class="col-3 text-right">
+        <button id="copyOutputBtn" class="btn btn-secondary" title="Copy to clipboard">📋 Copy</button>
+      </div>
+    </div>
+    <div class="row col-12">
+      <textarea id="output" class="form-control" rows="20"></textarea>
+    </div>
+  </div>
+</div>
+
+<footer class="container mt-5 mb-5">
+  <div class="row">
+    <div class="col-lg-10">
+      <p class="legal-copyright">
+        &copy; Copyright 2020, <span class="text-info text-lg">👤 Lewis Nakao</span>, All rights reserved.
+      </p>
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item"><a href="https://lewdev.github.io">👤 Me</a></li>
+        <li class="list-group-item"><a href="https://twitter.com/lewdev">🐦 Twitter</a></li>
+        <li class="list-group-item"><a href="https://github.com/lewdev">🐙 GitHub</a></li>
+        <li class="list-group-item"><a href="https://www.linkedin.com/in/lewisnakao">📘 LinkedIn</a></li>
+        <li class="list-group-item"><a href="https://github.com/sponsors/lewdev">❤️ Sponsor Me</a></li>
+      </ul>
+    </div>
+    <div class="col-lg-2">
+      <div class="ml-auto text-right" style="width: 100px;"><a href="#top">Back to top</a></div>
+    </div>
+  </div>
+</footer>
+
+<div id="about" class="modal-window">
+  <div>
+    <a href="#" title="Close" class="modal-close text-lg">&times;</a>
+    <h3>🙋 What is this?</h3>
+    <p>I haven't found a good enough tool that would do this basic thing as generate text for my meta tags.</p>
+
+    <p>This is a single-page application, which means this single page contains everything for this app.</p>
+
+    <h4>Features:</h4>
+    <ul>
+      <li>Generates standard meta tags based on Open Graph (Facebook) and Schema.org.</li>
+      <li>This stores your last generated form (in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank">localStorage</a>)
+        so when you get back to it, it remembers what you entered last.</li>
+    </ul>
+
+    <h3>🤷 Why?</h3>
+    <p>I like to make small apps and quickly whip up unnecessary code.</p>
+
+    <h3>👤 Author: Lewis Nakao</h3>
+    <p>I am a software engineer in Hawaii. Find more stuff like this <a href="https://lewdev.github.io" target="_blank">here</a>.</p>
+
+    <h3>Tools Used</h3>
+    <ul class="list-group list-group-horizontal">
+      <li class="list-group-item"><a target="_blank" href="https://bootswatch.com">🛠️ Bootswatch</a></li>
+      <li class="list-group-item"><a target="_blank" href="https://getbootstrap.com">🛠️ Bootstrap</a></li>
+      <li class="list-group-item"><a target="_blank" href="https://www.getpaint.net">🛠️ Paint.net</a></li>
+    </ul>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body></html>

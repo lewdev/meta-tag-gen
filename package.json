@@ -1,0 +1,14 @@
+{
+  "name": "meta-tag-gen",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "concurrently \"serve src -p 3001\" \"opener http://localhost:3001\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "opener": "^1.5.2"
+  }
+}
