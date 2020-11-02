@@ -54,7 +54,7 @@ pinterest:  1000 x 1500
 <meta itemprop="image" content="${imageUrl}">
 
 <!-- Twitter -->
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${title}">
 <meta name="twitter:description" content="${description}">
 <meta name="twitter:site" content="@${twitter}">
