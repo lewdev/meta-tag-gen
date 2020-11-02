@@ -3,7 +3,7 @@ Generates meta tags based on multiple standards.
 
 <p align="center">
 <a href="https://lewdev.github.io/apps/meta-tag-gen">
-<img src="https://lewdev.github.io/apps/meta-tag-gen/apple-icon-180x180.png"/>
+<img src="https://lewdev.github.io/apps/meta-tag-gen/favicon/apple-icon-180x180.png"/>
 </a>
 </p>
 
