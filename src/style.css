@@ -5,7 +5,16 @@ body {
   margin-top: 5rem;
 }
 .text-lg { font-size: 1.5rem; }
-input, textarea {
+input, textarea, select {
   background-color: darkgray !important;
   color: black !important;
+}
+.my-tooltip {
+  display: none;
+}
+input[type="text"].form-control:focus + div.my-tooltip,
+select.form-control:focus + div.my-tooltip,
+textarea.form-control:focus + div.my-tooltip
+ {
+  display: block;
 }

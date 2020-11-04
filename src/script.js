@@ -10,11 +10,14 @@ const metaTagsGen = (() => {
   let data = {};
 
   window.onload = () => {
+    populateEmojiDropdown();
     loadData(() => {
       populateForm(metaInputs, data);
-      displayData();
+      initCharCounter("title", 70);
+      initCharCounter("description", 160);
+      initCharCounter("keywords", 160);
     });
-    generateBtn.onclick = () => displayData();
+    generateBtn.onclick = () => genMetaTags();
     copyOutputBtn.onclick = () => {
       output.select();
       document.execCommand('copy');
@@ -22,9 +25,25 @@ const metaTagsGen = (() => {
     navbarToggleBtn.onclick = () => {
       const navbar = document.getElementById('navbarResponsive');
       navbar.classList.toggle('show');
-    }
-  }
+    };
+  };
+  const populateEmojiDropdown = () => {
+    const select = metaInputs.querySelector(`.emoji`);
+    select.innerHTML = emojis.map(e => `<option value="${e.emoji}">${e.emoji} ${e.name}</option>`).join("");
+  };
+  const updateCharCount = (name, maxSize) => {
+    const input = metaInputs.querySelector(`.${name}`);
+    const elem = metaInputs.querySelector(`.${name}-char-count`);
+    const diff = maxSize - input.value.length;
+    elem.innerHTML = `${diff < 0 ? `<span class="text-danger">${diff}</span>` : diff} of ${maxSize} chars left`;
+  };
+  const initCharCounter = (name, maxSize) => {
+    const input = metaInputs.querySelector(`.${name}`);
+    input.onblur = input.onkeyup = input.onchange = input.onload = () => updateCharCount(name, maxSize);
+    updateCharCount(name, maxSize);
+  };
   const populateForm = (elem, obj) => {
+    populateByColumn(elem, "emoji", obj, true);
     populateByColumn(elem, "title", obj, true);
     populateByColumn(elem, "description", obj, true);
     populateByColumn(elem, "author", obj, true);
@@ -33,36 +52,29 @@ const metaTagsGen = (() => {
     populateByColumn(elem, "twitter", obj, true);
     populateByColumn(elem, "fbAppId", obj, true);
   };
-  const displayData = () => {
+  const genMetaTags = () => {
     data = getFormData(metaInputs);
     saveData();
-    const {title, description, author, url, imageUrl, twitter, fbAppId} = data;
+    const {emoji, title, description, author, url, imageUrl, twitter, fbAppId} = data;
     output.innerHTML = 
-`<meta name="author" content="${author}">
+`<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>${title}</title>
+<meta name="author" content="${author}">
 <meta name="description" content="${description}">
-
-<!-- Optimal Banner Sizes
-facebook:   1200 x 630
-open graph: 1200 x 627
-twitter:    1500 x 500
-pinterest:  1000 x 1500
--->
-
-<!-- Schema.org for Google -->
-<meta itemprop="name" content="${title}">
-<meta itemprop="description" content="${description}">
-<meta itemprop="image" content="${imageUrl}">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${title}">
+<meta name="twitter:title" content="${emoji} ${title}">
 <meta name="twitter:description" content="${description}">
 <meta name="twitter:site" content="@${twitter}">
 <meta name="twitter:creator" content="@${twitter}">
 <meta name="twitter:image" content="${imageUrl}">
 
 <!-- Open Graph general (Facebook, Pinterest)-->
-<meta property="og:title" content="${title}">
+<meta property="og:title" content="${emoji} ${title}">
 <meta property="og:description" content="${description}">
 <meta property="og:url" content="${url}">
 <meta property="og:site_name" content="${title}">
@@ -73,6 +85,7 @@ ${!fbAppId ? "" : `<meta property="fb:app_id" content="${fbAppId}">`}`;
   }
   const getFormData = elem => {
     const obj = {};
+    getDataByColumn(elem, "emoji", obj);
     getDataByColumn(elem, "title", obj);
     getDataByColumn(elem, "description", obj);
     getDataByColumn(elem, "author", obj);
@@ -145,6 +158,18 @@ ${!fbAppId ? "" : `<meta property="fb:app_id" content="${fbAppId}">`}`;
         }
       }
     }
+  };
+  const trigger = (elem, eventName) => {
+    if (!elem) { return; }
+    var event;
+    if (typeof(Event) === 'function') {
+      event = new Event(eventName);
+    }
+    else {
+      event = document.createEvent("Event");
+      event.initEvent(eventName, true, true);
+    }
+    elem.dispatchEvent(event);
   };
   const loadData = callback => {
     const localData = window.localStorage.getItem(APP_DATA_KEY);

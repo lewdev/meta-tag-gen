@@ -11,11 +11,6 @@
   <meta name="author" content="Lewis Nakao">
   <meta name="description" content="Generates meta tags based on multiple standards.">
 
-  <!-- Schema.org for Google -->
-  <meta itemprop="name" content="🤖 Meta Tag Generator">
-  <meta itemprop="description" content="Generates meta tags based on multiple standards.">
-  <meta itemprop="image" content="https://lewdev.github.io/apps/meta-tag-gen/img/banner-1200x630.png">
-
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="🤖 Meta Tag Generator">
@@ -75,30 +70,67 @@
     </div>
   </div>
 
-  <div class="container">
+  <div id="top" class="container">
     <div class="page-header" id="banner">
       <h1>⌨️ Inputs</h1>
     </div>
     <div id="metaInputs" class="row">
-      <div class="col-md-4 mt-3">
-        <label>⌨️ Title</label>
+      <div class="col-md-2 mt-3">
+        <label>😃 Emoji</label>
+        <select class="form-control emoji"></select>
+        <div class="my-tooltip">
+          ℹ️ Emojis are effective means of expression. Use them in the text inputs!
+          (<a target="_blank" href="https://emojipedia.org/">Find more</a>)
+        </div>
+      </div>
+      <div class="col-md-10 mt-3">
+        <label>⌨️ Title (<span class="title-char-count">60 of 60 chars</span>)</label>
         <input type="text" class="form-control title" placeholder="e.g. My App Name" />
+        <div class="my-tooltip">
+          ℹ️ Research suggests that 50-60 char long titles allows 90% of your title to be properly visible in search engine results.
+          Also consider visibility of title on browser tabs and social media posts.
+          (<a target="_blank" href="https://moz.com/learn/seo/title-tag">More info</a>)
+        </div>
       </div>
-      <div class="col-md-4 mt-3">
-        <label>⌨️ Description</label>
-        <input type="text" class="form-control description" placeholder="e.g. What my app does..." />
+      <div class="col-md-6 mt-3">
+        <label>⌨️ Description (<span class="description-char-count">160 of 160 chars left</span>)</label>
+        <textarea class="form-control description" placeholder="e.g. What my app does..."></textarea>
+        <div class="my-tooltip">
+          ℹ️ This does not influence SEO, but it is used below your title on social media posts. Optmially length: 50 to 160 chars. 
+          Imagine this being an ad copy and do not duplicate words in your title.
+          (<a target="_blank" href="https://moz.com/learn/seo/meta-description">More info</a>)
+        </div>
       </div>
-      <div class="col-md-4 mt-3">
-        <label>👤 Author</label>
-        <input type="text" class="form-control author" placeholder="e.g. John Smith..." />
+      <div class="col-md-6 mt-3">
+        <label>⌨️ Keywords (Optional. <span class="keywords-char-count">160 of 160 chars left</span>)</label>
+        <textarea class="form-control keywords" placeholder="e.g. Meta Tags, Code Generator, ..."></textarea>
+        <div class="my-tooltip">
+          ℹ️ This does not influence most search engines, but I'll use this to help generate hash tags.
+          (<a target="_blank" href="https://moz.com/blog/the-ultimate-guide-to-seo-meta-tags">More info</a>)
+        </div>
       </div>
-      <div class="col-md-4 mt-3">
-        <label>ℹ️ URL</label>
+      <div class="col-md-6 mt-3">
+        <label>🔗 URL</label>
         <input type="text" class="form-control url" placeholder="e.g. https://github.com ..." />
+        <div class="my-tooltip">ℹ️ URL to your page.</div>
       </div>
-      <div class="col-md-4 mt-3">
+      <div class="col-md-6 mt-3">
         <label>🖼️ Image URL</label>
         <input type="text" class="form-control imageUrl" placeholder="e.g. https://github.com ..." />
+        <div class="my-tooltip">
+          URL to image banner that is optimally 1200 x 630, 1600 x 840, 1920 x 1000. Optimal sizes specific to website:
+          <ul>
+            <li>Facebook (1200 x 630, <a target="_blank" href="https://developers.facebook.com/docs/sharing/webmasters/images/">source</a>)</li>
+            <li>Open Graph (1200 x 627, <a target="_blank" href="https://neilpatel.com/blog/open-graph-meta-tags/">source</a>)</li>
+            <li>Twitter (1500 x 500, <a target="_blank" href="https://blog.snappa.com/twitter-header-size/">source</a>)</li>
+            <li>YouTube (2560 x 1440, min: 1546 x 423, <a target="_blank" href="https://www.wyzowl.com/youtube-banner-size/">source</a>)</li>
+            <li>Pinterest (1000 x 1500)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4 mt-3">
+        <label>👤 Author (Optional)</label>
+        <input type="text" class="form-control author" placeholder="e.g. John Smith..." />
       </div>
       <div class="col-md-4 mt-3">
         <label>🐦 Twitter Username</label>
@@ -107,6 +139,20 @@
       <div class="col-md-4 mt-3">
         <label>📘 fb:app_id</label>
         <input type="text" class="form-control fbAppId" placeholder="e.g. 99999999"/>
+      </div>
+      <div class="col-12 mt-3">
+        <div>
+          📇 &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+          <a target="_blank" href="https://moz.com/blog/the-ultimate-guide-to-seo-meta-tags">Explained here</a>
+        </div>
+        <div>
+          📇 &lt;meta name=viewport content="width=device-width, initial-scale=1"&gt;
+          <a target="_blank" href="https://web.dev/responsive-web-design-basics/">Explained here</a>
+        </div>
+        <div>
+          📇 &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+          <a target="_blank" href="https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do">Explained here</a>
+        </div>
       </div>
       <div class="col-12 mt-3 text-center">
         <button id="generateBtn" class="btn btn-primary">🤖 Generate</button>
@@ -186,8 +232,10 @@
       <li class="list-group-item"><a target="_blank" href="https://getbootstrap.com">🛠️ Bootstrap</a></li>
       <li class="list-group-item"><a target="_blank" href="https://www.getpaint.net">🛠️ Paint.net</a></li>
     </ul>
+    <div class="p-5"></div>
   </div>
 </div>
 
+<script src="assets/emojis.js"></script>
 <script src="script.js"></script>
 </body></html>
