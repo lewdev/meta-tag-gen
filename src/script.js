@@ -4,6 +4,8 @@ const metaTagsGen = (() => {
   const metaInputs = document.getElementById("metaInputs");
   const output = document.getElementById("output");
   const generateBtn = document.getElementById("generateBtn");
+  const genTwitterPostBtn = document.getElementById("genTwitterPostBtn");
+  const genFacebookPostBtn = document.getElementById("genFacebookPostBtn");
   const copyOutputBtn = document.getElementById("copyOutputBtn");
   const navbarToggleBtn = document.getElementById("navbarToggleBtn");
 
@@ -18,6 +20,8 @@ const metaTagsGen = (() => {
       initCharCounter("keywords", 160);
     });
     generateBtn.onclick = () => genMetaTags();
+    genTwitterPostBtn.onclick = () => genTwitterPost();
+    genFacebookPostBtn.onclick = () => genFacebookPost();
     copyOutputBtn.onclick = () => {
       output.select();
       document.execCommand('copy');
@@ -46,16 +50,50 @@ const metaTagsGen = (() => {
     populateByColumn(elem, "emoji", obj, true);
     populateByColumn(elem, "title", obj, true);
     populateByColumn(elem, "description", obj, true);
+    populateByColumn(elem, "keywords", obj, true);
     populateByColumn(elem, "author", obj, true);
     populateByColumn(elem, "url", obj, true);
     populateByColumn(elem, "imageUrl", obj, true);
     populateByColumn(elem, "twitter", obj, true);
     populateByColumn(elem, "fbAppId", obj, true);
   };
+  const extractHostname = url => {
+    //find & remove protocol (http, ftp, etc.) and get hostname
+    let hostname = url.split('/')[url.indexOf("//") > -1 ? 2 : 0];
+    //find & remove port number
+    hostname = hostname.split(':')[0];
+    //find & remove "?"
+    return hostname.split('?')[0];
+  };
+  const genTwitterPost = () => {
+    data = getFormData(metaInputs);
+    saveData();
+    const {emoji, title, description, keywords, author, url, imageUrl, twitter, hashtags, fbAppId} = data;
+    output.innerHTML = 
+`${emoji} ${title}
+${description}
+🏷️ ${hashtags}
+${url}
+`;
+    window.location = "#outputSection";
+  };
+  const genFacebookPost = () => {
+    data = getFormData(metaInputs);
+    saveData();
+    const {emoji, title, description, url, twitter, hashtags} = data;
+    output.innerHTML = 
+`${emoji} ${title}
+${description}
+🏷️ ${hashtags}
+👍 Follow me @${twitter}
+${url}
+`;
+    window.location = "#outputSection";
+  };
   const genMetaTags = () => {
     data = getFormData(metaInputs);
     saveData();
-    const {emoji, title, description, author, url, imageUrl, twitter, fbAppId} = data;
+    const {emoji, title, description, keywords, author, url, siteName, imageUrl, twitter, fbAppId} = data;
     output.innerHTML = 
 `<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -64,6 +102,7 @@ const metaTagsGen = (() => {
 <title>${title}</title>
 <meta name="author" content="${author}">
 <meta name="description" content="${description}">
+<meta name="keywords" content="${keywords}">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
@@ -77,37 +116,39 @@ const metaTagsGen = (() => {
 <meta property="og:title" content="${emoji} ${title}">
 <meta property="og:description" content="${description}">
 <meta property="og:url" content="${url}">
-<meta property="og:site_name" content="${title}">
+<meta property="og:site_name" content="${siteName}">
 <meta property="og:type" content="website">
 <meta property="og:image" content="${imageUrl}">
-${!fbAppId ? "" : `<meta property="fb:app_id" content="${fbAppId}">`}`;
+
+<!-- https://realfavicongenerator.net -->
+
+<!-- your CSS -->
+${!fbAppId ? "" : `<meta property="fb:app_id" content="${fbAppId}">`}
+`;
     window.location = "#outputSection";
-  }
+  };
   const getFormData = elem => {
     const obj = {};
     getDataByColumn(elem, "emoji", obj);
     getDataByColumn(elem, "title", obj);
     getDataByColumn(elem, "description", obj);
+    getDataByColumn(elem, "keywords", obj);
     getDataByColumn(elem, "author", obj);
     getDataByColumn(elem, "url", obj);
     getDataByColumn(elem, "imageUrl", obj);
     getDataByColumn(elem, "twitter", obj);
     getDataByColumn(elem, "fbAppId", obj);
+    if (obj.url) obj.siteName = extractHostname(obj.url);
+    if (obj.keywords) obj.hashtags = obj.keywords.trim().split(',').map(a => '#' + a.replace(/[^\d\w_]/g, '')).join(" ");
     return obj;
   }
   const getDataByColumn = (parentElem, colName, obj) => {
-    var input = parentElem.querySelector("." + colName);
+    const input = parentElem.querySelector("." + colName);
     if (input) {
-      if (input.getAttribute("type") === "checkbox") {
-        obj[colName] = input.checked ? 'TRUE' : 'FALSE';
-      }
-      else {
-        obj[colName] = input.value;
-      }
+      const isCheckbox = input.getAttribute("type") === "checkbox";
+      obj[colName] = isCheckbox ? (input.checked ? 'TRUE' : 'FALSE') : input.value;
     }
-    else {
-      obj[colName] = "";
-    }
+    else obj[colName] = "";
   };
   const populateByColumn = (parentElem, colName, obj, leaveBlank) => {
     if (!parentElem) return;
@@ -184,8 +225,13 @@ ${!fbAppId ? "" : `<meta property="fb:app_id" content="${fbAppId}">`}`;
   const saveData = () => {
     window.localStorage.setItem(APP_DATA_KEY, JSON.stringify(data));
   };
-  // const clearData = () => {
-  //   window.localStorage.setItem(APP_DATA_KEY, JSON.stringify(data));
-  // }
 })();
 
+if (window.location.hostname !== 'localhost') {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2833478-13', 'auto');
+  ga('send', 'pageview');
+}
