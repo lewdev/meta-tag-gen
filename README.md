@@ -1,11 +1,10 @@
 # meta-tag-gen
-Generates meta tags based on multiple standards.
-
 <p align="center">
-<a href="https://lewdev.github.io/apps/meta-tag-gen">
-<img src="https://lewdev.github.io/apps/meta-tag-gen/favicon/apple-icon-180x180.png"/>
-</a>
+  <img src="https://lewdev.github.io/apps/meta-tag-gen/img/banner-1200x630.png"/><br/>
+  <a href="https://lewdev.github.io/apps/meta-tag-gen/">🤖 Meta Tag Generator 🤖</a>
 </p>
+
+Generates HTML code optimal for social media, SEO, and mobile using web standards from Open Graph (Facebook) and Twitter to provide optimal results. Also generates social media posts.
 
 ## 👤 Author: Lewis Nakao
 I am a software engineer in Hawaii. Find more stuff like this [here](https://lewdev.github.io).
