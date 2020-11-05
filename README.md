@@ -1,6 +1,6 @@
 # meta-tag-gen
 <p align="center">
-  <img src="https://lewdev.github.io/apps/meta-tag-gen/img/banner-1200x630.png"/><br/>
+  <img src="https://lewdev.github.io/apps/meta-tag-gen/favicon/apple-icon-180x180.png"/><br/>
   <a href="https://lewdev.github.io/apps/meta-tag-gen/">🤖 Meta Tag Generator 🤖</a>
 </p>
 
