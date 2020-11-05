@@ -68,7 +68,7 @@ const metaTagsGen = (() => {
   const genTwitterPost = () => {
     data = getFormData(metaInputs);
     saveData();
-    const {emoji, title, description, keywords, author, url, imageUrl, twitter, hashtags, fbAppId} = data;
+    const {emoji, title, description, url, hashtags} = data;
     output.innerHTML = 
 `${emoji} ${title}
 ${description}
@@ -102,7 +102,7 @@ ${url}
 <title>${title}</title>
 <meta name="author" content="${author}">
 <meta name="description" content="${description}">
-<meta name="keywords" content="${keywords}">
+${!keywords ? "" : `<meta name="<meta name="keywords" content="${keywords}">`}
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">

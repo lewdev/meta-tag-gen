@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="meta-tag-gen" default="build" basedir=".">
+  <property environment="env" />
+
+  <target name="build" depends="compile, copy-to-public" description="Build"/>
+
+  <target name="build-clean" depends="clean, init, build" description="Clean Build"/>
+
+  <target name="clean">
+    <delete dir="./public" />
+    <delete dir="./www" />
+  </target>
+
+  <target name="init">
+    <mkdir dir="./public" />
+    <mkdir dir="./www" />
+  </target>
+
+  <target name="copy-to-public">
+    <copy todir="./public"> <!-- overwrite="true" -->
+      <fileset dir="./src" excludes="**/*.html,**/style.css,**/*.js"/>
+    </copy>
+  </target>
+
+  <target name="compile" depends="init, compile-index"/>
+
+  <target name="genkey">
+    <exec dir="." executable="cmd" >
+      <arg line="/c keytool -genkey -alias ${ant.project.name} -keyalg RSA -keypass AllTerrainScoutTransport -storepass AllTerrainScoutTransport -keystore keytool.keystore"/>
+    </exec>
+  </target>
+
+  <!-- npm install -g html-minifier -->
+  <!-- npm install -g clean-css-cli -->
+  <!-- npm install -g google-closure-compiler -->
+  <target name="compile-index">
+    <exec dir="." executable="cmd" >
+      <arg line="/c html-minifier"/>
+      <arg line="--collapse-whitespace --remove-comments --remove-tag-whitespace --use-short-doctype"/>
+      <arg line="-o ./public/index.html"/>
+      <arg line="./src/index.html"/>
+    </exec>
+    <exec dir="." executable="cmd" >
+      <arg line="/c cleancss -o ./public/style.css ./src/style.css ."/>
+    </exec>
+    <exec dir="." executable="cmd" >
+      <arg line="/c npx google-closure-compiler"/>
+      <arg line="--compilation_level ADVANCED_OPTIMIZATIONS"/>
+      <arg line="--js ./src/assets/emojis.js"/>
+      <arg line="--js ./src/script.js"/>
+      <arg line="--js_output_file ./public/script.js"/>
+    </exec>
+  </target>
+
+  <target name="phonegap" depends="build-clean">
+    <copy todir="./www"> <!-- overwrite="true" -->
+      <fileset dir="./public"/>
+    </copy>
+  </target>
+
+  <target name="zipBuild">
+    <zip destfile="${ant.project.name}.zip">
+      <zipfileset dir="./" includes="www/** config.xml" />
+    </zip>
+  </target>
+
+  <target name="cordova" />
+
+  <target name="install-compilers">
+    <exec dir="." executable="cmd" >
+      <arg line="/c npm i -g html-minifier clean-css-cli npx google-closure-compiler"/>
+    </exec>
+  </target>
+</project>
