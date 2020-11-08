@@ -8,6 +8,7 @@ const metaTagsGen = (() => {
   const genFacebookPostBtn = document.getElementById("genFacebookPostBtn");
   const copyOutputBtn = document.getElementById("copyOutputBtn");
   const navbarToggleBtn = document.getElementById("navbarToggleBtn");
+  const navbar = document.getElementById('navbarResponsive');
 
   let data = {};
 
@@ -26,10 +27,28 @@ const metaTagsGen = (() => {
       output.select();
       document.execCommand('copy');
     };
-    navbarToggleBtn.onclick = () => {
-      const navbar = document.getElementById('navbarResponsive');
-      navbar.classList.toggle('show');
+    // navbarToggleBtn.onclick = () => navbar.classList.toggle('show');
+
+    const OPEN_CLASS = 'show';
+    const addOffClick = (e, cb) => {
+      const offClick = evt => {
+        if (e !== evt) {
+          cb()
+          document.removeEventListener('click', offClick)
+        }
+      }
+      document.addEventListener('click', offClick)
     };
+    const handleClick = (e) => {
+      const toggleMenu = () => navbar.classList.toggle(OPEN_CLASS)
+      e.stopPropagation()
+      if (!navbar.classList.contains(OPEN_CLASS)) {
+        toggleMenu()
+        addOffClick(e, toggleMenu)
+      }
+    };
+    navbarToggleBtn.onclick = handleClick;
+
   };
   const populateEmojiDropdown = () => {
     const select = metaInputs.querySelector(`.emoji`);
@@ -93,16 +112,26 @@ ${url}
   const genMetaTags = () => {
     data = getFormData(metaInputs);
     saveData();
-    const {emoji, title, description, keywords, author, url, siteName, imageUrl, twitter, fbAppId} = data;
+    // const {emoji, title, description, keywords, author, url, siteName, imageUrl, twitter, fbAppId} = data;
+    const emoji = data["emoji"];
+    const title = data["title"];
+    const description = data["description"];
+    const keywords = data["keywords"];
+    const author = data["author"];
+    const url = data["url"];
+    const siteName = data["siteName"];
+    const imageUrl = data["imageUrl"];
+    const twitter = data["twitter"];
+    const fbAppId = data["fbAppId"];
     output.innerHTML = 
 `<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 <title>${title}</title>
-<meta name="author" content="${author}">
-<meta name="description" content="${description}">
-${!keywords ? "" : `<meta name="<meta name="keywords" content="${keywords}">`}
+${!author ? "" : `<meta name="author" content="${author}">`}
+${!description ? "" : `<meta name="description" content="${description}">`}
+${!keywords ? "" : `<meta name="keywords" content="${keywords}">`}
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
@@ -120,10 +149,10 @@ ${!keywords ? "" : `<meta name="<meta name="keywords" content="${keywords}">`}
 <meta property="og:type" content="website">
 <meta property="og:image" content="${imageUrl}">
 
+${!fbAppId ? "" : `<meta property="fb:app_id" content="${fbAppId}">\n`}
 <!-- https://realfavicongenerator.net -->
 
-<!-- your CSS -->
-${!fbAppId ? "" : `<meta property="fb:app_id" content="${fbAppId}">`}
+<!-- CSS -->
 `;
     window.location = "#outputSection";
   };
@@ -226,12 +255,3 @@ ${!fbAppId ? "" : `<meta property="fb:app_id" content="${fbAppId}">`}
     window.localStorage.setItem(APP_DATA_KEY, JSON.stringify(data));
   };
 })();
-
-if (window.location.hostname !== 'localhost') {
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-2833478-13', 'auto');
-  ga('send', 'pageview');
-}

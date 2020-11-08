@@ -25,24 +25,26 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://lewdev.github.io/apps/meta-tag-gen/img/banner-1200x630.png">
 
-  <!-- favicon -->
-  <link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+  <!-- realfavicongenerator.net -->
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-  <link rel="manifest" href="favicon/manifest.json">
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+  <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#2b5797">
+  <meta name="msapplication-config" content="favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
+
+  <!-- Offline -->
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Meta Tag Generator">
+  <meta name="application-name" content="Meta Tag Generator">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="msapplication-navbutton-color" content="#ffffff">
+  <meta name="msapplication-starturl" content="./index.html">
 
   <link rel="stylesheet" href="assets/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css-modal.css">
@@ -51,10 +53,10 @@
 <body>
   <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
     <div class="container">
-      <span class="navbar-brand"><img src="favicon/android-icon-36x36.png" /> Meta Tag Generator</span>
-      <button class="navbar-toggler" type="button" data-toggle="collapse"
+      <span class="navbar-brand"><img src="favicon/favicon-32x32.png" /> Meta Tag Generator</span>
+      <button id="navbarToggleBtn" class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span id="navbarToggleBtn" class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
@@ -200,6 +202,8 @@
         <li class="list-group-item"><a href="https://lewdev.github.io">👤 Me</a></li>
         <li class="list-group-item"><a href="https://twitter.com/lewdev">🐦 Twitter</a></li>
         <li class="list-group-item"><a href="https://github.com/lewdev">🐙 GitHub</a></li>
+      </ul>
+      <ul class="list-group list-group-horizontal">
         <li class="list-group-item"><a href="https://facebook.com/SWEinHawaii">📘 Facebook</a></li>
         <li class="list-group-item"><a href="https://www.linkedin.com/in/lewisnakao">👔 LinkedIn</a></li>
         <li class="list-group-item"><a href="https://github.com/sponsors/lewdev">❤️ Sponsor Me</a></li>
@@ -215,7 +219,8 @@
   <div>
     <a href="#" title="Close" class="modal-close text-lg">&times;</a>
     <h3>🙋 What is this?</h3>
-    <p>Generate HTML code optimal for social media, SEO, mobile. Uses web standards from Open Graph (Facebook) and Twitter to provide optimal results. Also generates social media posts.</p>
+    <p>Generate HTML code optimal for social media, SEO, mobile for your single-page app.
+      This uses web standards from Open Graph (Facebook) and Twitter to provide optimal results. Also generates social media posts.</p>
 
     <h4>Features:</h4>
     <ul>
@@ -224,6 +229,8 @@
         so when you get back to it, it remembers what you entered last.</li>
       <li>Yes this is <a href="https://github.com/lewdev/meta-tag-gen">👨‍💻 Open Source</a>!</li>
     </ul>
+
+    <button id="installBtn" class="btn btn-info" aria-label="Install for offline access.">Install app</button>
 
     <h3>🤷 Why?</h3>
     <p>I haven't found a good enough tool that would do this basic thing as generate text for my meta tags.</p>
@@ -250,15 +257,14 @@
   </div>
 </div>
 
+<script src="loadSw.js"></script>
 <script src="assets/emojis.js"></script>
 <script src="script.js"></script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-2833478-13', 'auto');
-  ga('send', 'pageview');
-</script>
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-2833478-13', 'auto');
+ga('send', 'pageview');</script>
 </body></html>

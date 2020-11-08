@@ -2,7 +2,7 @@
 <project name="meta-tag-gen" default="build" basedir=".">
   <property environment="env" />
 
-  <target name="build" depends="compile, copy-to-public" description="Build"/>
+  <target name="build" depends="compile, copy-to-public, remove-includes" description="Build"/>
 
   <target name="build-clean" depends="clean, init, build" description="Clean Build"/>
 
@@ -16,9 +16,10 @@
     <mkdir dir="./www" />
   </target>
 
+  <!-- overwrite="true" -->
   <target name="copy-to-public">
-    <copy todir="./public"> <!-- overwrite="true" -->
-      <fileset dir="./src" excludes="**/*.html,**/style.css,**/*.js"/>
+    <copy todir="./public" includeEmptyDirs="false">
+      <fileset dir="./src" excludes="**/*.html,**/*.css,**/script.js,**/emojis.js"/>
     </copy>
   </target>
 
@@ -30,9 +31,6 @@
     </exec>
   </target>
 
-  <!-- npm install -g html-minifier -->
-  <!-- npm install -g clean-css-cli -->
-  <!-- npm install -g google-closure-compiler -->
   <target name="compile-index">
     <exec dir="." executable="cmd" >
       <arg line="/c html-minifier"/>
@@ -41,15 +39,45 @@
       <arg line="./src/index.html"/>
     </exec>
     <exec dir="." executable="cmd" >
-      <arg line="/c cleancss -o ./public/style.css ./src/style.css ."/>
+      <arg line="/c cleancss ./src/style.css ./src/assets/css-modal.css ./src/assets/bootstrap.min.css -o ./public/style.css"/>
     </exec>
     <exec dir="." executable="cmd" >
       <arg line="/c npx google-closure-compiler"/>
+      <arg line="--charset UTF-8"/>
       <arg line="--compilation_level ADVANCED_OPTIMIZATIONS"/>
       <arg line="--js ./src/assets/emojis.js"/>
       <arg line="--js ./src/script.js"/>
       <arg line="--js_output_file ./public/script.js"/>
     </exec>
+  </target>
+
+  <!-- copy over not-compiled "src" to github -->
+  <target name="github-src">
+    <delete dir="../lewdev.github.io/apps/${ant.project.name}"/>
+    <mkdir dir="../lewdev.github.io/apps/${ant.project.name}" />
+    <copy todir="../lewdev.github.io/apps/${ant.project.name}">
+      <fileset dir="./src"/>
+    </copy>
+  </target>
+
+  <!-- copy over compiled "public" to github -->
+  <target name="github" depends="build-clean">
+    <delete dir="../lewdev.github.io/apps/${ant.project.name}"/>
+    <mkdir dir="../lewdev.github.io/apps/${ant.project.name}" />
+    <copy todir="../lewdev.github.io/apps/${ant.project.name}">
+      <fileset dir="./public"/>
+    </copy>
+  </target>
+
+  <target name="remove-includes">
+    <replace dir="./public" value="">
+      <include name="index.html"/>
+      <replacetoken>&lt;script src="assets/emojis.js"&gt;&lt;/script&gt;</replacetoken>
+    </replace>
+    <replace dir="./public" value="">
+      <include name="index.html"/>
+      <replacetoken>&lt;link rel="stylesheet"href="assets/bootstrap.min.css"&gt;&lt;link rel="stylesheet"href="assets/css-modal.css"&gt;</replacetoken>
+    </replace>
   </target>
 
   <target name="phonegap" depends="build-clean">

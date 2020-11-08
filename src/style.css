@@ -28,7 +28,6 @@ select.form-control:focus + div.my-tooltip,
 textarea.form-control:focus + div.my-tooltip
 {
   visibility: visible;
-
   opacity: 1.0;
   transition: opacity .55s ease-in-out;
   -moz-transition: opacity .55s ease-in-out;
