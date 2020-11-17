@@ -28,5 +28,7 @@ window.addEventListener('beforeinstallprompt', event => {
   });
   // Update UI notify the user they can add to home screen
   var installBanner = document.querySelector('#installBanner');
+  var installBtnDiv = document.querySelector('#installBtnDiv');
   if (installBanner) installBanner.style.display = 'flex';
+  if (installBtnDiv) installBtnDiv.style.display = 'block';
 });
