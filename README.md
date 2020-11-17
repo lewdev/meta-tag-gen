@@ -10,8 +10,15 @@ Generates HTML code optimal for social media, SEO, and mobile using web standard
 * 🤖 Generate HTML meta tags optimal for social media, SEO, mobile for your single-page app.
 * 🐦 Generate app release tweet.
 * 📘 Generate app release Facebook post.
-* ✂️🔌 Offline mode via [PWA](https://web.dev/progressive-web-apps/) 🆕
-* 🆓 FREE / 🚫 No Ads.
+* ✂️🔌 Offline mode via [PWA](https://web.dev/progressive-web-apps/)
+* 📄 MIT Open Source / 🚫 No Ads / 🙈 No Login
+
+## Demo video & some thoughts
+<p align="center">
+  <a target="_blank" href="https://www.youtube.com/watch?v=UCwEFBBZEAo">
+    <img src="https://img.youtube.com/vi/UCwEFBBZEAo/0.jpg">
+  </a>
+</p>
 
 ## 👤 Author: Lewis Nakao
 I am a software engineer in Hawaii. Find more stuff like this [here](https://lewdev.github.io).
