@@ -10,6 +10,8 @@ Generates HTML code optimal for social media, SEO, and mobile using web standard
 
 ## Features
 * 🤖 Generate HTML meta tags optimal for social media, SEO, mobile for your single-page app.
+* 🛠️ Useful tool tips with links to the sources of information.
+* 😃 Select an emoji to spruce up your social media posts.
 * 🐦 Generate app release tweet.
 * 📘 Generate app release Facebook post.
 * ✂️🔌 Offline mode via [PWA](https://web.dev/progressive-web-apps/)
