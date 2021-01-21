@@ -6,6 +6,8 @@
 
 Generates HTML code optimal for social media, SEO, and mobile using web standards from Open Graph (Facebook) and Twitter to provide optimal results. Also generates social media posts.
 
+<a href="https://www.producthunt.com/posts/meta-tag-generator?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-meta-tag-generator" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=281540&theme=light" alt="Meta Tag Generator - Generate HTML code optimal for SEO, social media, & mobile. | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+
 ## Features
 * 🤖 Generate HTML meta tags optimal for social media, SEO, mobile for your single-page app.
 * 🐦 Generate app release tweet.
