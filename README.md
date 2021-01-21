@@ -24,6 +24,10 @@ Generates HTML code optimal for social media, SEO, and mobile using web standard
   </a>
 </p>
 
+## Other links
+* [Meta Tag Generator on Product Hunt](https://www.producthunt.com/posts/meta-tag-generator)
+* [Meta Tag Generator on AlternativeTo](https://alternativeto.net/software/meta-tag-generator--html-code-optimal-for-social-media-seo-mobile/)
+
 ## 👤 Author: Lewis Nakao
 I am a software engineer in Hawaii. Find more stuff like this [here](https://lewdev.github.io).
 
