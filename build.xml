@@ -2,7 +2,7 @@
 <project name="meta-tag-gen" default="build" basedir=".">
   <property environment="env" />
 
-  <target name="build" depends="compile, copy-to-public, remove-includes" description="Build"/>
+  <target name="build" depends="compile, copy-to-public" description="Build"/>
 
   <target name="build-clean" depends="clean, init, build" description="Clean Build"/>
 
@@ -34,7 +34,8 @@
   <target name="compile-index">
     <exec dir="." executable="cmd" >
       <arg line="/c html-minifier"/>
-      <arg line="--collapse-whitespace --remove-comments --remove-tag-whitespace --use-short-doctype"/>
+      <arg line="--remove-comments --collapse-inline-tag-whitespace --remove-script-type-attributes "/>
+      <arg line="--use-short-doctype --conservative-collapse --collapse-whitespace --remove-tag-whitespace --decode-entities "/>
       <arg line="-o ./public/index.html"/>
       <arg line="./src/index.html"/>
     </exec>
@@ -67,17 +68,6 @@
     <copy todir="../lewdev.github.io/apps/${ant.project.name}">
       <fileset dir="./public"/>
     </copy>
-  </target>
-
-  <target name="remove-includes">
-    <replace dir="./public" value="">
-      <include name="index.html"/>
-      <replacetoken>&lt;script src="assets/emojis.js"&gt;&lt;/script&gt;</replacetoken>
-    </replace>
-    <replace dir="./public" value="">
-      <include name="index.html"/>
-      <replacetoken>&lt;link rel="stylesheet"href="assets/bootstrap.min.css"&gt;&lt;link rel="stylesheet"href="assets/css-modal.css"&gt;</replacetoken>
-    </replace>
   </target>
 
   <target name="phonegap" depends="build-clean">
