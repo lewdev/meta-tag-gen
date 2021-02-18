@@ -15,7 +15,7 @@ Generates HTML code optimal for social media, SEO, and mobile using web standard
 * 🐦 Generate app release tweet.
 * 📘 Generate app release Facebook post.
 * ✂️🔌 Offline mode via [PWA](https://web.dev/progressive-web-apps/)
-* 📄 MIT Open Source / 🚫 No Ads / 🙈 No Login
+* 📄 MIT Open Source / 🙈 No Login
 
 ## Demo video & some thoughts
 <p align="center">
