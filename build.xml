@@ -81,12 +81,4 @@
       <zipfileset dir="./" includes="www/** config.xml" />
     </zip>
   </target>
-
-  <target name="cordova" />
-
-  <target name="install-compilers">
-    <exec dir="." executable="cmd" >
-      <arg line="/c npm i -g html-minifier clean-css-cli npx google-closure-compiler"/>
-    </exec>
-  </target>
 </project>
