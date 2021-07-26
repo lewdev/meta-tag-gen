@@ -19,7 +19,7 @@
   <!-- overwrite="true" -->
   <target name="copy-to-public">
     <copy todir="./public" includeEmptyDirs="false">
-      <fileset dir="./src" excludes="**/*.html,**/*.css,**/script.js,**/emojis.js"/>
+      <fileset dir="./src" excludes="**/*.html,**/*.css,**/script.js,**/emojis.js,**/utils.js,**/populateFieldsRandomly.js"/>
     </copy>
   </target>
 
@@ -46,6 +46,8 @@
       <arg line="/c npx google-closure-compiler"/>
       <arg line="--charset UTF-8"/>
       <arg line="--compilation_level ADVANCED_OPTIMIZATIONS"/>
+      <arg line="--js ./src/assets/utils.js"/>
+      <arg line="--js ./src/assets/populateFieldsRandomly.js"/>
       <arg line="--js ./src/assets/emojis.js"/>
       <arg line="--js ./src/script.js"/>
       <arg line="--js_output_file ./public/script.js"/>

@@ -76,7 +76,14 @@
 
   <div id="top" class="container">
     <div class="page-header" id="banner">
-      <h1>⌨️ Inputs</h1>
+      <div class="row">
+        <div class="col-10">
+          <h1>⌨️ Inputs</h1>
+        </div>
+        <div class="col-2">
+          <button class="btn btn-block btn-secondary" onClick="populateFieldsRandomly()">🔁 Randomify</button>
+        </div>
+      </div>
     </div>
     <div id="metaInputs" class="row">
       <div class="col-md-2 mt-3">
@@ -152,8 +159,8 @@
         <h3>Other links</h3>
         <ul>
           <li>
-            📇 &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-            <a target="_blank" href="https://moz.com/blog/the-ultimate-guide-to-seo-meta-tags">Explained here</a>
+            📇 &lt;meta charset="utf-8"/&gt;
+            <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Quirks_Mode_and_Standards_Mode#how_does_mozilla_determine_which_mode_to_use.3f">Explained here</a>
           </li>
           <li>
             📇 &lt;meta name=viewport content="width=device-width, initial-scale=1"&gt;
@@ -265,8 +272,10 @@
   </div>
 </div>
 
-<script src="loadSw.js"></script>
+<!-- <script src="loadSw.js"></script> -->
 <script src="assets/emojis.js"></script>
+<script src="assets/utils.js"></script>
+<script src="assets/populateFieldsRandomly.js"></script>
 <script src="script.js"></script>
 <script data-ad-client="ca-pub-9379975851459960" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

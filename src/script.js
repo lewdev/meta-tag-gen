@@ -1,6 +1,17 @@
 const metaTagsGen = (() => {
   const APP_DATA_KEY = "meta-tags-gen";
 
+  const FIELDS = [
+    "emoji",
+    "title",
+    "description",
+    "keywords",
+    "author",
+    "url",
+    "imageUrl",
+    "twitter",
+    "fbAppId",
+  ];
   const metaInputs = document.getElementById("metaInputs");
   const output = document.getElementById("output");
   const generateBtn = document.getElementById("generateBtn");
@@ -65,17 +76,7 @@ const metaTagsGen = (() => {
     input.onblur = input.onkeyup = input.onchange = input.onload = () => updateCharCount(name, maxSize);
     updateCharCount(name, maxSize);
   };
-  const populateForm = (elem, obj) => {
-    populateByColumn(elem, "emoji", obj, true);
-    populateByColumn(elem, "title", obj, true);
-    populateByColumn(elem, "description", obj, true);
-    populateByColumn(elem, "keywords", obj, true);
-    populateByColumn(elem, "author", obj, true);
-    populateByColumn(elem, "url", obj, true);
-    populateByColumn(elem, "imageUrl", obj, true);
-    populateByColumn(elem, "twitter", obj, true);
-    populateByColumn(elem, "fbAppId", obj, true);
-  };
+  const populateForm = (elem, obj) => FIELDS.forEach(field => populateByColumn(elem, field, obj, true));
   const extractHostname = url => {
     //find & remove protocol (http, ftp, etc.) and get hostname
     let hostname = url.split('/')[url.indexOf("//") > -1 ? 2 : 0];
@@ -112,19 +113,9 @@ ${url}
   const genMetaTags = () => {
     data = getFormData(metaInputs);
     saveData();
-    // const {emoji, title, description, keywords, author, url, siteName, imageUrl, twitter, fbAppId} = data;
-    const emoji = data["emoji"];
-    const title = data["title"];
-    const description = data["description"];
-    const keywords = data["keywords"];
-    const author = data["author"];
-    const url = data["url"];
-    const siteName = data["siteName"];
-    const imageUrl = data["imageUrl"];
-    const twitter = data["twitter"];
-    const fbAppId = data["fbAppId"];
+    const {emoji, title, description, keywords, author, url, siteName, imageUrl, twitter, fbAppId} = data;
     output.innerHTML = 
-`<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+`<meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
@@ -171,76 +162,6 @@ ${!fbAppId ? "" : `<meta property="fb:app_id" content="${fbAppId}">\n`}
     if (obj.keywords) obj.hashtags = obj.keywords.trim().split(',').map(a => '#' + a.replace(/[^\d\w_]/g, '')).join(" ");
     return obj;
   }
-  const getDataByColumn = (parentElem, colName, obj) => {
-    const input = parentElem.querySelector("." + colName);
-    if (input) {
-      const isCheckbox = input.getAttribute("type") === "checkbox";
-      obj[colName] = isCheckbox ? (input.checked ? 'TRUE' : 'FALSE') : input.value;
-    }
-    else obj[colName] = "";
-  };
-  const populateByColumn = (parentElem, colName, obj, leaveBlank) => {
-    if (!parentElem) return;
-    var elemList = parentElem.querySelectorAll("." + colName);
-    var value = obj[colName];
-    value = value ? value : '';
-    if (elemList) {
-      var i, elem, size = elemList.length;
-      for (i = 0; i < size; i++) {
-        elem = elemList[i];
-        if (elem.tagName === "I") {
-          elem.className = colName + " " + (value === "TRUE" ? "far fa-check-square" : "far fa-square")
-        }
-        else if (elem.tagName === "INPUT" || elem.tagName === "TEXTAREA") {
-          if (elem.getAttribute("type") === "checkbox") {
-            elem.checked = value === "TRUE";
-          }
-          else {
-            elem.value = value;
-          }
-        }
-        else if (elem.tagName === "SELECT") {
-          var options = elem.querySelectorAll("option")
-            , j, optionSize = options.length, selectedIndex = -1;
-          for (j = 0; j < optionSize; j++) {
-            if (value === options[j].value) {
-              options[j].selected = true;
-              selectedIndex = j;
-              break;
-            }
-          }
-          elem.value = value;
-          elem.selectedIndex = selectedIndex;
-          //$(elem).val(value);
-          trigger(elem, "change");
-        }
-        else {
-          if (value && (value + "").trim() !== "") {
-            value = value
-              .replace(/\n/g, '<br/>')
-              .replace(/\s\s/g, '&nbsp;')
-            ;
-          }
-          else {
-            value = leaveBlank ? "" : 'N/A';
-          } 
-          elem.innerHTML = value;
-        }
-      }
-    }
-  };
-  const trigger = (elem, eventName) => {
-    if (!elem) { return; }
-    var event;
-    if (typeof(Event) === 'function') {
-      event = new Event(eventName);
-    }
-    else {
-      event = document.createEvent("Event");
-      event.initEvent(eventName, true, true);
-    }
-    elem.dispatchEvent(event);
-  };
   const loadData = callback => {
     const localData = window.localStorage.getItem(APP_DATA_KEY);
     if (localData) {
