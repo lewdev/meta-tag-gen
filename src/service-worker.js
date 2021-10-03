@@ -11,8 +11,8 @@ var APP_PREFIX = "meta-tag-gen-", VERSION = 'v1'
   , CACHE_NAME = APP_PREFIX + VERSION
   , precacheConfig = [
     ["./", "-214489181"]
-    , ["index.html", "1763771178"]
-    , ["script.js", "-2071138039"]
+    , ["index.html", "1763771179"]
+    , ["script.js", "-2071138040"]
     , ["style.css", "-516880381"]
     , ["site.webmanifest", "-416130381"]
     , ["assets/emojis.js", "-433234225"]
